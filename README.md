@@ -18,6 +18,7 @@ This is a React frontend for a bookstore application. It allows users to browse 
 - **React Context API**: For managing global state (e.g., authentication, cart).
 
 ## Folder Structure
+```
 my-react-app/
 ├── public/
 │   ├── index.html                # HTML entry point
@@ -50,7 +51,7 @@ my-react-app/
 │   ├── App.css                   # Global styles for the app
 │   ├── routes.js                 # App routing configuration (React Router)
 └── .env                           # Environment variables (API keys, etc.)
-
+```
 
 ## Setup Instructions
 ### Prerequisites
@@ -70,8 +71,9 @@ npm install
 Set Up Environment Variables:
 3. Create a .env file in the root directory.
     - Add your backend API URL:
+    ```
     REACT_APP_API_URL=http://localhost:5000/api
-    
+    ```
 4. Run the Application:
     ```bash
     npm start
