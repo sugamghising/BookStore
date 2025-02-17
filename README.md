@@ -68,17 +68,19 @@ cd BookStore/my-react-app
 ```bash
 npm install
 ```
+
 Set Up Environment Variables:
 3. Create a .env file in the root directory.
-    - Add your backend API URL:
-    ```
+- Add your backend API URL
+ ```
     REACT_APP_API_URL=http://localhost:5000/api
-    ```
+ ```    
+    
 4. Run the Application:
-    ```bash
-    npm start
-    ```
-   - The app will start on http://localhost:3000.
+```bash
+npm start
+```
+- The app will start on http://localhost:3000.
 5. Build for Production:
 ```bash
 npm run build
