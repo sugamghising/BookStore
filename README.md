@@ -70,6 +70,7 @@ npm install
 ```
 
 Set Up Environment Variables:
+
 3. Create a .env file in the root directory.
 - Add your backend API URL
  ```
