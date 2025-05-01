@@ -1,20 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { getBookById } from '../services/bookService';
+import CartContext from '../context/CartContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const BookDetailPage = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
+  const { cart, addToCart } = useContext(CartContext);
+  const [isInCart, setIsInCart] = useState(false);
 
   useEffect(() => {
     const fetchBook = async () => {
       const data = await getBookById(id);
       setBook(data);
+      setIsInCart(cart.some(item => item._id === data._id));
     };
     fetchBook();
-  }, [id]);
+  }, [id, cart]);
+
+  const handleAddToCart = () => {
+    if (book && book.stock > 0) {
+      addToCart(book);
+      setIsInCart(true);
+      
+      alert(`${book.title} has been added to your cart!`);
+    }
+  };
 
   if (!book) return <div className="bg-gray-800 text-white py-8 min-h-screen">Loading...</div>;
 
@@ -42,11 +55,16 @@ const BookDetailPage = () => {
               </div>
 
               <button 
-                className={`bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 ${book.stock <= 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={book.stock <= 0} // Disable if out of stock
-              >
-                {book.stock <= 0 ? 'Out of Stock' : 'Add to Cart'} {/* Conditional button text */}
-              </button>
+            className={`${
+              book.stock <= 0 ? 'bg-gray-500 cursor-not-allowed' : 
+              isInCart ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'
+            } text-white px-6 py-2 rounded-lg`}
+            disabled={book.stock <= 0 || isInCart}
+            onClick={handleAddToCart}
+          >
+            {book.stock <= 0 ? 'Out of Stock' : 
+             isInCart ? 'Added to Cart' : 'Add to Cart'}
+          </button>
             </div>
           </div>
         </div>

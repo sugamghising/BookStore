@@ -34,19 +34,20 @@ const HomePage = () => {
     fetchBooks();
   }, []);
 
+  useEffect(() => {
+    filterBooks();
+  }, [searchTerm, checkedGenres, priceRange]); // Trigger filterBooks when these states change
+
   const handleSearch = (query) => {
     setSearchTerm(query);
-    filterBooks();
   };
 
   const handleGenreCheckboxChange = (genre) => {
     setCheckedGenres({ ...checkedGenres, [genre]: !checkedGenres[genre] });
-    filterBooks();
   };
 
   const handlePriceRangeChange = (event, newValue) => {
     setPriceRange(newValue);
-    filterBooks();
   };
 
   const filterBooks = () => {
@@ -85,7 +86,6 @@ const HomePage = () => {
       uniqueGenres.slice(1).forEach(genre => allGenres[genre] = true);
       setCheckedGenres(allGenres);
     }
-    filterBooks();
   };
 
   const displayedBooks = filteredBooks.slice(0, 9);

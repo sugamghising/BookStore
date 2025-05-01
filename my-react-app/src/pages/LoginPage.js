@@ -27,8 +27,17 @@ const LoginPage = () => {
 
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('name', userData.user.name);
+      localStorage.setItem('isAdmin', userData.user.isAdmin);
+      localStorage.setItem('token', userData.token);
 
-      navigate('/');
+      console.log('Stored token:', localStorage.getItem('token'));
+
+      if (userData.user.isAdmin) {
+        navigate('/admin/dashboard');
+      }else{
+        navigate('/');
+      }
+      
     } catch (error) {
       setError('Invalid email or password. Please try again.');
       console.log(error);

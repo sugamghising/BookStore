@@ -11,7 +11,6 @@ const FilterSection = ({
   maxPrice, 
   priceRange, 
   handlePriceRangeChange,
-  handleSearch
 }) => {
   return (
     <div className="w-1/4 pr-4">
@@ -37,7 +36,7 @@ const FilterSection = ({
                   className="form-checkbox h-5 w-5 text-blue-600"
                   checked={checkedGenres[genre] || false}
                   onChange={() => handleGenreCheckboxChange(genre)}
-              />
+                />
                 <span className="ml-2">{genre}</span>
               </label>
             </li>
@@ -54,7 +53,16 @@ const FilterSection = ({
             max={maxPrice}
             step={1}
             value={priceRange[1]}
-            onChange={(event, newValue) => handlePriceRangeChange(event, [priceRange[0], newValue])}
+            onChange={(event) => handlePriceRangeChange([priceRange[0], Number(event.target.value)])}
+            className="w-full"
+          />
+          <input
+            type="range"
+            min={minPrice}
+            max={maxPrice}
+            step={1}
+            value={priceRange[0]}
+            onChange={(event) => handlePriceRangeChange([Number(event.target.value), priceRange[1]])}
             className="w-full"
           />
           <div className="flex justify-between mt-2">
@@ -63,7 +71,6 @@ const FilterSection = ({
           </div>
         </div>
       </div>
-      {/* <SearchBar onSearch={handleSearch} /> */}
     </div>
   );
 };
